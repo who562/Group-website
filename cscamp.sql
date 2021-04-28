@@ -1,102 +1,168 @@
-CREATE DATABASE cscamp;
-USE cscamp;
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 28, 2021 at 01:36 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
-CREATE TABLE volunteer_info (
-    vol_id      INT             NOT NULL,
-    birth_date  DATE            NOT NULL,
-    first_name  VARCHAR(14)     NOT NULL,
-    last_name   VARCHAR(16)     NOT NULL,
-    hire_date   DATE            NOT NULL,
-    PRIMARY KEY  (vol_id)
-);
-
-CREATE TABLE manager_info (
-    man_id      INT             NOT NULL,
-    birth_date  DATE            NOT NULL,
-    first_name  VARCHAR(14)     NOT NULL,
-    last_name   VARCHAR(16)     NOT NULL,
-    hire_date   DATE            NOT NULL,
-    PRIMARY KEY  (man_id)
-)
-
-CREATE TABLE volunteer_hours (
-    vol_id      INT             NOT NULL,
-    curr_date   DATE            NOT NULL,
-    time_in     TIME            NOT NULL,
-    time_out    TIME            NOT NULL,
-    FOREIGN KEY  (vol_id)   REFERENCES volunteer_info (vol_id),
-    PRIMARY KEY (vol_id)    
-);
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
-CREATE TABLE jobs (
-    job_id      INT             NOT NULL,
-    job_name    VARCHAR(25)     NOT NULL,
-    man_id      INT             NOT NULL,
-    start_date  DATE            NOT NULL,
-    end_date    DATE            NOT NULL,
-    FOREIGN KEY (man_id)    REFERENCES manager_info (man_id),
-    PRIMARY KEY (job_id)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE tasks (
-    task_id     INT             NOT NULL,
-    task_name   VARCHAR(50)     NOT NULL,
-    job_id      INT             NOT NULL,
-    start_date    DATE            NOT NULL,
-    end_date    DATE            NOT NULL,
-    PRIMARY KEY (task_id),
-    FOREIGN KEY (vol_id)   REFERENCES volunteer_info (vol_id),
-    FOREIGN KEY (job_id)   REFERENCES jobs(job_id)
-);
+--
+-- Database: `cscamp`
+--
 
-CREATE TABLE donor_info (
-    donor_id    INT             NOT NULL,
-    first_name  VARCHAR(14)     NOT NULL,
-    last_name   VARCHAR(16)     NOT NULL,
-    start_date  DATE            NOT NULL,
-    PRIMARY KEY (donor_id)
-);
+-- --------------------------------------------------------
 
-CREATE TABLE donations (
-    don_id      INT             NOT NULL,
-    don_name    VARCHAR(50)     NOT NULL,
-    donor_id    INT             NOT NULL,
-    curr_date   DATE            NOT NULL,
-    don_total   MONEY           NOT NULL,
-    PRIMARY KEY (don_id),
-    FOREIGN KEY (donor_id)  REFERENCES donor_info (donor_id)
-);
+--
+-- Table structure for table `accounts`
+--
 
-INSERT INTO volunteer_info (vol_id, birth_date, first_name, last_name, hire_date)
-VALUES
-(2001, 07/27/1997, Genesis, McAllen, 05/10/2021),
-(2002, 02/07/1993, Hazel, Gonzalez, 05/15/2021),
-(2003, 11/21/2000, Michael, Smith, 05/15/2021),
-(2004, 09/18/1988, Jennifer, Carmichael, 05/16/2021),
-(2005, 12/25/2003, Benjamin, Figueroa, 05/16/2021),
-(2006, 04/16/1998, Janet, Robinson, 05/16/2021);
+DROP TABLE IF EXISTS `accounts`;
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `vol_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`vol_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-INSERT INTO manager_info (man_id, birth_date, first_name, last_name, hire_date)
-VALUES
-(3001, 08/13/1985, Harrison, Perry, 01/09/2021),
-(3002, 12/15/1992, Storm, Willis, 01/09/2021),
-(3003, 01/25/1990, Stephanie, Kim, 01/10/2021);
+--
+-- Dumping data for table `accounts`
+--
 
-INSERT INTO jobs (job_id, job_name, man_id, start_date, end_date) 
-VALUES
-(7068, "Web Development", 3002, 06/14/2021, 07/02/2021),
-(7071, "Gadgeteers", 3003, 06/14/2021, 07/02/2021),
-(7079, "Data Analysis", 3001, 06/14/2021, 07/02/2021);
+INSERT INTO `accounts` (`vol_id`, `username`, `password`, `email`) VALUES
+(2, 'alex', '$2y$10$ibWqf9NwEIrjSEIvD4OhI.voZgMTwzB.8PSbiFMaiQUCFG2me0i6C', 'test@gmail.com');
 
-INSERT INTO tasks (task_id, task_name, job_id, start_date, end_date)
-VALUES
-(8031, "HTML & CSS", 7068, 06/14/2021, 06/18/2021),
-(8035, "Python", 7079, 06/14/2021, 06/18/2021),
-(8037, "Arduino", 7071, 06/14/2021, 06/18/2021),
-(8042, "JavaScript & JQuery", 7068, 06/21/2021, 06/25/2021),
-(8046, "R", 7079, 06/21/2021, 06/25/2021),
-(8048, "Raspberry Pi", 7071, 06/21/2021, 06/25/2021),
-(8053, "Web Dev Projects", 7068, 06/28/2021, 07/02/2021),
-(8057, "Data Projects", 7079, 06/28/2021, 07/02/2021),
-(8059, "Gadget Projects", 7071, 06/18/2021, 07/02/2021);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+DROP TABLE IF EXISTS `jobs`;
+CREATE TABLE IF NOT EXISTS `jobs` (
+  `job_id` int(11) NOT NULL,
+  `job_name` varchar(25) NOT NULL,
+  `man_id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  PRIMARY KEY (`job_id`),
+  KEY `man_id` (`man_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`job_id`, `job_name`, `man_id`, `start_date`, `end_date`) VALUES
+(7068, 'Web Development', 3002, '0000-00-00', '0000-00-00'),
+(7071, 'Gadgeteers', 3003, '0000-00-00', '0000-00-00'),
+(7079, 'Data Analysis', 3001, '0000-00-00', '0000-00-00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manager_info`
+--
+
+DROP TABLE IF EXISTS `manager_info`;
+CREATE TABLE IF NOT EXISTS `manager_info` (
+  `man_id` int(11) NOT NULL,
+  `birth_date` date NOT NULL,
+  `first_name` varchar(14) NOT NULL,
+  `last_name` varchar(16) NOT NULL,
+  `hire_date` date NOT NULL,
+  PRIMARY KEY (`man_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `manager_info`
+--
+
+INSERT INTO `manager_info` (`man_id`, `birth_date`, `first_name`, `last_name`, `hire_date`) VALUES
+(3001, '0000-00-00', 'Harrison', 'Perry', '0000-00-00'),
+(3002, '0000-00-00', 'Storm', 'Willis', '0000-00-00'),
+(3003, '0000-00-00', 'Stephanie', 'Kim', '0000-00-00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tasks`
+--
+
+DROP TABLE IF EXISTS `tasks`;
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `vol_id` int(11) NOT NULL,
+  `task_id` int(11) NOT NULL,
+  `task_name` varchar(50) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  PRIMARY KEY (`vol_id`),
+  KEY `job_id` (`job_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`vol_id`, `task_id`, `task_name`, `job_id`, `start_date`, `end_date`) VALUES
+(0, 8031, 'HTML & CSS', 7068, '0000-00-00', '0000-00-00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `volunteer_hours`
+--
+
+DROP TABLE IF EXISTS `volunteer_hours`;
+CREATE TABLE IF NOT EXISTS `volunteer_hours` (
+  `vol_id` int(11) NOT NULL,
+  `curr_date` date NOT NULL,
+  `time_in` time NOT NULL,
+  `time_out` time NOT NULL,
+  PRIMARY KEY (`vol_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `volunteer_info`
+--
+
+DROP TABLE IF EXISTS `volunteer_info`;
+CREATE TABLE IF NOT EXISTS `volunteer_info` (
+  `vol_id` int(11) NOT NULL,
+  `birth_date` date NOT NULL,
+  `first_name` varchar(14) NOT NULL,
+  `last_name` varchar(16) NOT NULL,
+  `hire_date` date NOT NULL,
+  PRIMARY KEY (`vol_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `volunteer_info`
+--
+
+INSERT INTO `volunteer_info` (`vol_id`, `birth_date`, `first_name`, `last_name`, `hire_date`) VALUES
+(2001, '0000-00-00', 'Genesis', 'McAllen', '0000-00-00'),
+(2002, '0000-00-00', 'Hazel', 'Gonzalez', '0000-00-00'),
+(2003, '0000-00-00', 'Michael', 'Smith', '0000-00-00'),
+(2004, '0000-00-00', 'Jennifer', 'Carmichael', '0000-00-00'),
+(2005, '0000-00-00', 'Benjamin', 'Figueroa', '0000-00-00'),
+(2006, '0000-00-00', 'Janet', 'Robinson', '0000-00-00');
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

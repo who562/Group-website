@@ -1,58 +1,60 @@
-@import url(http://fonts.googleapis.com/css?family=Droid+Serif);
-h2{
-text-align: center;
-font-size: 24px;
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
-hr{
-margin-bottom: 30px;
+body {
+    background-color: #435165;
 }
-div.container{
-width: 960px;
-height: 610px;
-margin:50px auto;
-font-family: 'Droid Serif', serif;
-position:relative;
+.login {
+    width: 400px;
+    background-color: #ffffff;
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+    margin: 100px auto;
 }
-div.main{
-width: 320px;
-margin-top: 80px;
-float:left;
-padding: 10px 55px 40px;
-background-color: rgba(187, 255, 184, 0.65);
-border: 15px solid white;
-box-shadow: 0 0 10px;
-border-radius: 2px;
-font-size: 13px;
+.login h1 {
+    text-align: center;
+    color: #5b6574;
+    font-size: 24px;
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid #dee0e4;
 }
-input[type=text],[type=password] {
-width: 97.7%;
-height: 34px;
-padding-left: 5px;
-margin-bottom: 20px;
-margin-top: 8px;
-box-shadow: 0 0 5px #00F5FF;
-border: 2px solid #00F5FF;
-color: #4f4f4f;
-font-size: 16px;
+.login form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
 }
-label{
-color: #464646;
-text-shadow: 0 1px 0 #fff;
-font-size: 14px;
-font-weight: bold;
+.login form label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #3274d6;
+    color: #ffffff;
 }
-#login {
-width: 100%;
-background: linear-gradient(#22abe9 5%, #36caf0 100%);
-border: 1px solid #0F799E;
-font-size: 20px;
-margin-top: 15px;
-padding: 8px;
-font-weight: bold;
-cursor: pointer;
-color: white;
-text-shadow: 0px 1px 0px #13506D;
+.login form input[type="password"], .login form input[type="text"] {
+    width: 310px;
+    height: 50px;
+    border: 1px solid #dee0e4;
+    margin-bottom: 20px;
+    padding: 0 15px;
 }
-#login:hover{
-background: linear-gradient(#36caf0 5%, #22abe9 100%);
+.login form input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+   margin-top: 20px;
+    background-color: #3274d6;
+    border: 0;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+.login form input[type="submit"]:hover {
+  background-color: #2868c7;
+    transition: background-color 0.2s;
 }
